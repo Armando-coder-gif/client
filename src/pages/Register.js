@@ -12,23 +12,28 @@ const initialState = {
 
 const Register = () =>{
     const [values, setValues] = useState(initialState)
-    // global state and useNavigate
 
-    const {isLoading, showAlert} = useAppContext();
+    // global state and useNavigate
+    
+    const {isLoading, showAlert, displayAlert} = useAppContext();
 
     const toggleMember = () =>{
         setValues({...values, isMember:!values.isMember})
     };
 
     const handleChange = (e) =>{
-        console.log(e.target);
+        setValues({...values, [e.target.name]: e.target.value})
     };
 
     const onSubmit = (e) =>{
         e.preventDefault();
-        console.log(e.target)
+        
+        const {name, email, password, isMember} = values;
+        if(!email || !password || (!isMember && !name)){
+            displayAlert();
+            return
+        }
     };
-
 
     return <Wrapper className='full-page'>
         <form className='form' onSubmit={onSubmit}>
@@ -40,8 +45,8 @@ const Register = () =>{
                 (<FormRow 
                 type="text"
                 name="name" 
-                value={values.name} 
-                handleChange={handleChange} />)
+                value={values.name}  
+                onChange={handleChange} />)
             }
             
 
@@ -50,17 +55,17 @@ const Register = () =>{
             <FormRow 
                 type="email"
                 name="email"
-                value={values.email} 
-                handleChange={handleChange} />
+                value={values.email}  
+                onChange={handleChange} />
             {/* password-input*/}
             
             <FormRow
                 type="password" 
                 name="password" 
                 value={values.password} 
-                handleChange={handleChange} />
+                onChange={handleChange} />
             
-            <button type='submit' className='btn btn-block'>submit</button>
+            <button type='submit' className='btn btn-block' onClick={handleChange} >submit</button>
             <p>
                 {values.isMember ? "Not a member yet":"Already a member?"}
                 <button type='button' onClick={toggleMember} className="member-btn">
