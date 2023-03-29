@@ -28,6 +28,7 @@ const Register = () =>{
     const onSubmit = (e) =>{
         e.preventDefault();
         
+        console.log(values)
         const {name, email, password, isMember} = values;
         if(!email || !password || (!isMember && !name)){
             displayAlert();
@@ -65,7 +66,7 @@ const Register = () =>{
                 value={values.password} 
                 onChange={handleChange} />
             
-            <button type='submit' className='btn btn-block' onClick={handleChange} >submit</button>
+            <button type='submit' className='btn btn-block'>submit</button>
             <p>
                 {values.isMember ? "Not a member yet":"Already a member?"}
                 <button type='button' onClick={toggleMember} className="member-btn">
