@@ -22,18 +22,19 @@ const Register = () =>{
     };
 
     const handleChange = (e) =>{
+        console.log(e.target.name);
         setValues({...values, [e.target.name]: e.target.value})
     };
-
+    
+    const {name, email, password, isMember} = values;
     const onSubmit = (e) =>{
         e.preventDefault();
         
-        console.log(values)
-        const {name, email, password, isMember} = values;
         if(!email || !password || (!isMember && !name)){
             displayAlert();
             return
         }
+        console.log(values)
     };
 
     return <Wrapper className='full-page'>
@@ -46,8 +47,8 @@ const Register = () =>{
                 (<FormRow 
                 type="text"
                 name="name" 
-                value={values.name}  
-                onChange={handleChange} />)
+                value={name}  
+                handleChange={(e)=>handleChange(e)} />)
             }
             
 
@@ -56,15 +57,15 @@ const Register = () =>{
             <FormRow 
                 type="email"
                 name="email"
-                value={values.email}  
-                onChange={handleChange} />
+                value={email}  
+                handleChange={(e)=>handleChange(e)} />
             {/* password-input*/}
             
             <FormRow
                 type="password" 
                 name="password" 
-                value={values.password} 
-                onChange={handleChange} />
+                value={password} 
+                handleChange={(e)=>handleChange(e)} />
             
             <button type='submit' className='btn btn-block'>submit</button>
             <p>
